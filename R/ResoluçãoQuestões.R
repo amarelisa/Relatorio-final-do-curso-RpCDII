@@ -192,12 +192,13 @@ genero_maior_nota <- imdb_completa %>%
 
 genero_maior_nota
 
-```
 
-# 5. Dentre os filmes na base `imdb_completa`, escolha o seu favorito. Então faça 
+# 5. Dentre os filmes na base imdb_completa, escolha o seu favorito. Então faça 
 # os itens a seguir: a) Quem dirigiu o filme? Faça uma ficha dessa pessoa: idade 
 # (hoje em dia ou data de falecimento), onde nasceu, quantos filmes já dirigiu, 
-# qual o lucro médio dos filmes que dirigiu (considerando apenas valores em dólar) e outras informações que achar interessante (base `imdb_pessoas`).
+# qual o lucro médio dos filmes que dirigiu (considerando apenas valores em dólar) 
+# e outras informações que achar interessante (base imdb_pessoas).
+
 # Verificando qual é o nome do diretor do filme
 
 hair_nome_direcao <- imdb_completa %>% 
@@ -249,9 +250,6 @@ milos_generos_freq <- imdb_completa %>%
   arrange(desc(freq_genero)) %>% 
   select('Gênero' = genero, 'Frequência relativa' = freq_genero) %>% 
   kable()
-
-
-```
 
 # b) Qual a posição desse filme no ranking de notas do IMDB? E no ranking de 
 # lucro (considerando apenas valores em dólar)?
