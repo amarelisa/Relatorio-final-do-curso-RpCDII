@@ -159,8 +159,7 @@ moedas_receita_orcamento <- imdb_completa %>%
 
 # Importando banco de dados que contém mais informações sobre as moedas que foram identificadas:
 
-lista_moedas <- read_excel("data_raw/lista_moedas.xlsx",
-    na = c("Nenhum", "none"))
+lista_moedas <- read_excel("data_raw/lista_moedas.xlsx")
 View(lista_moedas)
 
 # Listando as moedas dos orçamentos dos filmes contidos na base IMDB:
