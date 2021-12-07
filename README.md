@@ -1,4 +1,4 @@
-# Relatorio final do curso "R para Ciência de Dados II"
+# Relatório final do curso "R para Ciência de Dados II"
 
 ## Descrição do contéudo das pastas
 
