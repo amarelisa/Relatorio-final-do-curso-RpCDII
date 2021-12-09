@@ -329,12 +329,29 @@ library(tibble)
 
 # Elaborando o gráfico de avaliações por idade
 
-gtab <- function(name, a) { tibble::tibble(!!name := a) }
-
-grafico_avaliacoes_idade <- imdb_completa %>% 
+notas <- imdb_completa %>% 
   left_join(imdb_avaliacoes, by = "id_filme", copy = TRUE) %>% 
   filter(str_detect(titulo, pattern = "Hair$")) %>% 
-  mutate(faixa_etaria = )
+  select(nota_media_idade_0_18, nota_media_idade_18_30, 
+         nota_media_idade_30_45, nota_media_idade_45_mais) %>%
+  summarise(nota_media = as.numeric(c(nota_media_idade_0_18,
+                                      nota_media_idade_18_30,
+                                      nota_media_idade_30_45,
+                                      nota_media_idade_45_mais))) %>% 
+  rowid_to_column()
+  
+faixa_etaria <- list((1:4), c("0 a 18 anos", "18 a 30 anos", "30 a 45 anos",
+                       "45 anos ou mais"))
+names(faixa_etaria) <- c("rowid", "faixa_etaria")
+
+faixa_etaria <- as.data.frame(faixa_etaria)
+
+grafico_avaliacoes_idade <- notas %>% 
+  left_join(faixa_etaria, by = "rowid", copy = TRUE) %>% 
+  ggplot() +
+  geom_col(aes(x = faixa_etaria, y = nota_media))
+
+grafico_avaliacoes_idade
 
 
 
