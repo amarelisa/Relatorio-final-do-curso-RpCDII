@@ -7,10 +7,11 @@ output:
       highlight: github  
 ---
 
+::: {style="text-align: justify"}
 Antes de responder às perguntas propostas, é necessário, primeiramente, conectar este projeto ao GitHub e, em segundo lugar, importar os bancos de dados a serem utilizados durante a elaboração deste relatório.
+:::
 
-
-```{r Conectando ao git e ao github, eval=FALSE, include=FALSE}
+```{r Conectando ao git e ao github, eval=FALSE}
 
 # Conectando o GitHub
 
@@ -19,7 +20,7 @@ use_git()
 use_github()
 ```
 
-```{r Instalando pacote basesCursosR, eval=FALSE, include=FALSE}
+```{r Instalando pacote basesCursosR, eval=FALSE}
 
 # Instalando pacote "basesCursoR"
 
@@ -34,7 +35,11 @@ imdb_avaliacoes <- basesCursoR::pegar_base("imdb_avaliacoes")
 
 ```
 
-```{r Salvar bancos de dados, eval=FALSE, include=FALSE}
+::: {style="text-align: justify"}
+Uma vez que os bancos de dados já foram importantos, os salvarei.
+:::
+
+```{r Salvar bancos de dados, eval=FALSE}
 
 # Salvando os bancos de dados originais
 
@@ -51,9 +56,11 @@ write_rds(imdb_avaliacoes, "data/imdb_avaliacoes.rds")
 write_rds(imdb_pessoas, "data/imdb_pessoas.rds")
 ```
 
+::: {style="text-align: justify"}
 Agora sim, responderei às perguntas.
 
-1. Qual o mês do ano com o maior númedo de filmes? E o dia do ano?
+**1. Qual o mês do ano com o maior númedo de filmes? E o dia do ano?**
+:::
 
 ```{r Pergunta 1, echo=TRUE}
 
@@ -81,9 +88,7 @@ recorde_filme_mes <- imdb_completa %>%
   head(1) %>%
   mutate(pos = 1) %>%
   select("Posição" = pos, "Mês/Ano" = mês_ano, "Número de lançamentos" = n_filmes) %>%
-  kable()
-
-recorde_filme_mes
+  kable(format = "html", caption = "Tabela 1 - Mês com maior número de lançamentos", align = "ccc")
 
 # Verificando qual dia teve o maior número de filmes:
 
@@ -101,12 +106,25 @@ recorde_filme_dia <- imdb_completa %>%
   head(1) %>%
   mutate(pos = 1) %>%
   select("Posição" = pos, "Dia/Mês/Ano" = dia_mês_ano, "Número de Lançamentos" = n_filmes) %>%
-  kable()
+  kable(format = "html", caption = "Tabela 2 - Dia com maior número de lançamentos", align = "ccc")
 
-recorde_filme_dia
 ```
 
-2. Qual o top 5 países com mais filmes na base?
+::: {style="text-align: justify"}
+O mês com maior número de lançamentos de filmes foi:
+
+`r recorde_filme_mes`
+:::
+
+::: {style="text-align: justify"}
+O dia com maior número de lançamentos de filmes foi:
+
+`r recorde_filme_dia`
+:::
+
+::: {style="text-align: justify"}
+**2. Qual o top 5 países com mais filmes na base?**
+:::
 
 ```{r Pergunta 2, echo=TRUE}
 
@@ -124,12 +142,19 @@ top_paises_filmes <- imdb_completa %>%
   head(5) %>%
   rowid_to_column(var = "pos") %>%
   select("Posição" = pos, "País" = pais_nova, "Número de filmes" = n_filmes_pais) %>%
-  kable()
+  kable(format = "html", caption = "Tabela 3 - País com maior número de filmes", align = "ccc")
 
-top_paises_filmes
 ```
 
-3. Liste todas as moedas que aparecem nas colunas `orcamento` e `receita` da base `imdb_completa`.
+::: {style="text-align: justify"}
+Na Tabela 3, é possível observar o top cinco países com maior número de filmes na base de dados IMDB:
+
+`r top_paises_filmes`
+:::
+
+::: {style="text-align: justify"}
+**3. Liste todas as moedas que aparecem nas colunas `orcamento` e `receita` da base `imdb_completa`.**
+:::
 
 ```{r Pergunta 3, echo=TRUE}
 
@@ -156,7 +181,6 @@ moedas_receita_orcamento <- imdb_completa %>%
 # Importando banco de dados que contém mais informações sobre as moedas que foram identificadas:
 
 lista_moedas <- read_excel("D:/GitHub/RelatorioFinal2/data_raw/lista_moedas.xlsx")
-View(lista_moedas)
 
 # Listando as moedas dos orçamentos dos filmes contidos na base IMDB:
 
@@ -168,9 +192,7 @@ moedas_orcamento <- moedas_receita_orcamento %>%
   )) %>%
   left_join(lista_moedas, by = "orcamento", copy = TRUE) %>%
   select("Código das moedas dos orçamentos dos filmes" = orcamento, "Nome da moeda" = nome) %>%
-  kable()
-
-moedas_orcamento
+  kable(format = "html", caption = "Tabela 4 - Moedas dos orçamentos dos filmes", align = "cc")
 
 # Listando as moedas das receitas dos filmes contidos na base IMDB:
 
@@ -182,12 +204,25 @@ moedas_receita <- moedas_receita_orcamento %>%
   )) %>%
   left_join(lista_moedas, by = "receita", copy = TRUE) %>%
   select("Código das moedas das receitas dos filmes" = receita, "Nome da moeda" = nome) %>%
-  kable()
+  kable(format = "html", caption = "Tabela 5 - Moedas das receitas dos filmes", align = "ccc")
 
-moedas_receita
 ```
 
-4. Considerando apenas orçamentos e receitas em dólar ($), qual o gênero com maior lucro? E com maior nota média?
+::: {style="text-align: justify"}
+Eis a lista de moedas dos orçamentos dos filmes:
+
+`r moedas_orcamento`
+:::
+
+::: {style="text-align: justify"}
+E a lista de moedas das receitas dos filmes:
+
+`r moedas_receita`
+:::
+
+::: {style="text-align: justify"}
+**4. Considerando apenas orçamentos e receitas em dólar (\$), qual o gênero com maior lucro? E com maior nota média?**
+:::
 
 ```{r Pergunta 4, echo=TRUE}
 
@@ -211,10 +246,7 @@ genero_maior_lucro <- imdb_completa %>%
   arrange(desc(lucro)) %>%
   head(1, lucro) %>%
   select("Título" = titulo, "Gênero" = genero, "Lucro" = lucro) %>%
-  kable()
-
-genero_maior_lucro
-
+  kable(format = "html", caption = "Tabela 6 - Gênero do filme com maior lucro", align = "ccc")
 
 # Identificando qual é o gênero do filme que obteve a maior nota média
 
@@ -227,24 +259,40 @@ genero_maior_nota <- imdb_completa %>%
   arrange(desc(nota_media)) %>%
   head(1, nota_media) %>%
   select("Título" = titulo, "Gênero" = genero, "Nota média" = nota_media) %>%
-  kable()
+  kable(format = "html", caption = "Tabela 7 - Gênero do filme com maior nota média", align = "ccc")
 
-genero_maior_nota
 ```
 
-5. Dentre os filmes na base `imdb_completa`, escolha o seu favorito. Então faça os itens a seguir:
+::: {style="text-align: justify"}
+O gênero do filme com maior lucro foi:
 
-a) Quem dirigiu o filme? Faça uma ficha dessa pessoa: idade (hoje em dia ou data de falecimento), onde nasceu, quantos filmes já dirigiu, qual o lucro médio dos filmes que dirigiu (considerando apenas valores em dólar) e outras informações que achar interessante (base `imdb_pessoas`).
+`r genero_maior_lucro`
+:::
 
-```{r Pergunta 5, letra A}
+::: {style="text-align: justify"}
+O gênero do filme com maior nota média foi:
+
+`r genero_maior_nota`
+:::
+
+::: {style="text-align: justify"}
+**5. Dentre os filmes na base `imdb_completa`, escolha o seu favorito. Então faça os itens a seguir:**
+
+Meu filme favorito é o musical "Hair". Se você nunca o assistiu, recomendo que assista ao clipe da música "The Flesh Failures", mas **atenção**, este vídeo **contém spoilers**.
+
+[![IMAGE_ALT](https://img.youtube.com/vi/0mH23CAV7jE/1.jpg)](https://www.youtube.com/watch?v=0mH23CAV7jE)
+
+**a) Quem dirigiu o filme? Faça uma ficha dessa pessoa: idade (hoje em dia ou data de falecimento), onde nasceu, quantos filmes já dirigiu, qual o lucro médio dos filmes que dirigiu (considerando apenas valores em dólar) e outras informações que achar interessante (base `imdb_pessoas`).**
+:::
+
+```{r Pergunta 5, letra A, echo=TRUE}
 
 # Verificando qual é o nome do diretor do filme
 
 hair_nome_direcao <- imdb_completa %>%
   filter(str_detect(titulo, pattern = "Hair$")) %>%
-  select("Nome do diretor(a)" = direcao)
+  select(direcao)
 
-hair_nome_direcao
 
 # Calculando a idade que o diretor de "Hair" tinha quando faleceu
 
@@ -254,7 +302,8 @@ milos_idade_falecimento <- imdb_pessoas %>%
     .cols = c(data_nascimento, data_falecimento),
     .fns = ~ as.Date(ymd(.))
   )) %>%
-  mutate(idade_falecimento = as.period(data_falecimento - data_nascimento) / years(1))
+  summarise(idade_falecimento = as.period(data_falecimento - data_nascimento) / years(1)) %>%
+  mutate(idade_falecimento = round(idade_falecimento, 0))
 
 # Calculando quantos filmes, além de "Hair", ele dirigiu
 
@@ -262,6 +311,7 @@ milos_n_filmes <- imdb_completa %>%
   filter(str_detect(direcao, pattern = "Milos Forman")) %>%
   filter(str_detect(titulo, pattern = "Hair$", negate = TRUE)) %>%
   summarise(n_filmes = n_distinct(titulo))
+
 
 # Calculando os lucros médios dos filmes dirigidos por Milos Forman
 
@@ -279,6 +329,17 @@ milos_lucro_medio <- imdb_completa %>%
   mutate(lucro = receita - orcamento) %>%
   summarise(lucro_medio = mean(lucro))
 
+# Informações sobre Milos Forman
+
+info_milos_forman <- as.data.frame(c(hair_nome_direcao, milos_n_filmes, milos_lucro_medio, milos_idade_falecimento))
+
+ficha_info_milos <- info_milos_forman %>%
+  select("Nome do diretor" = direcao, "Número de filmes que dirigiu" = n_filmes, "Lucro médio" = lucro_medio, "Idade de falecimento" = idade_falecimento) %>%
+  kable(format = "html", caption = "Informações gerais sobre o diretor do filme \"Hair\"", align = "cccc")
+
+ficha_info_milos
+
+
 # Calculando a frequência relativa de cada um dos gêneros dos filmes que Milos Forman dirigiu
 
 milos_generos_freq <- imdb_completa %>%
@@ -292,10 +353,12 @@ milos_generos_freq <- imdb_completa %>%
   mutate(freq_genero = round(freq_genero, 2)) %>%
   arrange(desc(freq_genero)) %>%
   select("Gênero" = genero, "Frequência relativa" = freq_genero) %>%
-  kable()
+  kable(format = "html", caption = "Tabela 8 - Distribuição da frequência relativa dos gêneros dos filmes que Milos Forman dirigiu", align = "cc")
 ```
 
-b) Qual a posição desse filme no ranking de notas do IMDB? E no ranking de lucro (considerando apenas valores em dólar)?
+::: {style="text-align: justify"}
+**b) Qual a posição desse filme no ranking de notas do IMDB? E no ranking de lucro (considerando apenas valores em dólar)?**
+:::
 
 ```{r Pergunta 5, letra B}
 
@@ -308,7 +371,7 @@ posicao_nota_hair <- imdb_completa %>%
   rowid_to_column(var = "pos") %>%
   filter(str_detect(titulo, pattern = "Hair$")) %>%
   select("Filme" = titulo, "Nota média" = nota_media, "Posição" = pos) %>%
-  kable()
+  kable(format = "html", caption = "Tabela 9 - Posição do filme \"Hair\" no ranking de notas médias das avaliações", align = "ccc")
 
 posicao_nota_hair
 
@@ -330,45 +393,47 @@ posicao_lucro_hair <- imdb_completa %>%
   rowid_to_column(var = "pos") %>%
   filter(str_detect(titulo, "Hair$")) %>%
   select("Filme" = titulo, "Lucro" = lucro, "Posição" = pos) %>%
-  kable()
+  kable(format = "html", caption = "Tabela 10 - Posição do filme \"Hair\" no ranking de lucros obtidos pelos filmes", align = "ccc")
 
 posicao_lucro_hair
-
 ```
 
-c) Em que dia esse filme foi lançado? E dia da semana? Algum outro filme foi lançado no mesmo dia? Quantos anos você tinha nesse dia?
+::: {style="text-align: justify"}
+**c) Em que dia esse filme foi lançado? E dia da semana? Algum outro filme foi lançado no mesmo dia? Quantos anos você tinha nesse dia?**
+:::
 
-```{r Pergunta 5, letra C, echo=TRUE}
+```{r Pergunta 5, letra C, eval=TRUE, include=TRUE}
 
 # Data de lançamento do filme hair
 
 data_lancamento_hair <- imdb_completa %>%
   filter(str_detect(titulo, pattern = "Hair$")) %>%
-  summarise(data_lancamento = as.Date(ymd(data_lancamento)))
+  summarise(data_lancamento = as.Date(ymd(data_lancamento))) 
 
-data_lancamento_hair
-
+data_lancamento_hair$data_lancamento <- format(as.Date(data_lancamento_hair$data_lancamento, "%Y-%m-%d"), "%d/%m/%Y")
+  
 # Outros filmes que foram lançados no mesmo dia
 
 outros_filmes_lancados <- imdb_completa %>%
   filter(str_detect(titulo, pattern = "Hair$", negate = TRUE)) %>%
-  filter(str_detect(data_lancamento, pattern = "1979-05-16"))
-
-outros_filmes_lancados
+  filter(str_detect(data_lancamento, pattern = "1979-05-16")) %>% 
+  select(titulo)
 
 # Calculando a minha idade quando o filme foi lançado
 
 minha_idade <- imdb_completa %>%
   filter(str_detect(titulo, pattern = "Hair$")) %>%
   mutate(data_lancamento = as.Date(ymd(data_lancamento))) %>%
-  summarise(minha_idade = as.period(data_lancamento - as.Date(dmy("05 nov 1997"))) / years(1)) %>% 
-  mutate(minha_idade = round(minha_idade, 2))
+  summarise(minha_idade = as.period(data_lancamento - as.Date(dmy("05 nov 1997"))) / years(1)) %>%
+  mutate(minha_idade = round(minha_idade, 0))
 
 ```
 
-Eu tinha `r minha_idade` quando o filme "Hair" foi lançado.
+::: {style="text-align: justify"}
+"Hair" foi lançado em `r data_lancamento_hair`, mesmo dia em que estreiou o filme "`r outros_filmes_lancados`". Como nasci em 5 de novembro de 1997, eu tinha `r minha_idade` anos de idade nesta data.
 
-d) Faça um gráfico representando a distribuição da nota atribuída a esse filme por idade (base `imdb_avaliacoes`).
+**d) Faça um gráfico representando a distribuição da nota atribuída a esse filme por idade (base `imdb_avaliacoes`).**
+:::
 
 ```{r Pergunta 5, letra D, echo=TRUE}
 
@@ -376,7 +441,7 @@ d) Faça um gráfico representando a distribuição da nota atribuída a esse fi
 
 library(ggplot2)
 
-# Selecionando os valores das variáveis correspondentes às notas médias por 
+# Selecionando os valores das variáveis correspondentes às notas médias por
 # faixa etária
 
 notas <- imdb_completa %>%
@@ -389,7 +454,7 @@ notas <- imdb_completa %>%
   summarise(nota_media = as.numeric(c(nota_media_idade_0_18, nota_media_idade_18_30, nota_media_idade_30_45, nota_media_idade_45_mais))) %>%
   rowid_to_column()
 
-# Elaborando gráfico sobre as notas médias das avaliações do filme "Hair" por 
+# Elaborando gráfico sobre as notas médias das avaliações do filme "Hair" por
 # faixa etária
 
 faixa_etaria <- list((1:4), c(
@@ -404,33 +469,35 @@ faixa_etaria <- as.data.frame(faixa_etaria)
 
 grafico_avaliacoes_idade <- notas %>%
   left_join(faixa_etaria, by = "rowid", copy = TRUE) %>%
-  select(nota_media, faixa_etaria) %>% 
+  select(nota_media, faixa_etaria) %>%
   ggplot(aes(x = faixa_etaria, y = nota_media, fill = faixa_etaria)) +
   geom_col(stat = "identity", show.legend = TRUE) +
   geom_label(aes(label = nota_media), show.legend = FALSE) +
   scale_fill_discrete() +
   ylim(0, 10) +
-  labs(title = "Figura 1 - Médias das notas dadas ao filme \"Hair\" por faixa etária",
-       y = "Nota média das avaliações",
-      fill = "Faixa etária",
-       caption = "Fonte: IMDB")+
+  labs(
+    title = "Figura 1 - Médias das notas dadas ao filme \"Hair\" por faixa etária",
+    y = "Nota média das avaliações",
+    fill = "Faixa etária",
+    caption = "Fonte: IMDB"
+  ) +
   theme_minimal() +
-  theme(strip.text = element_text(size = 12),
-        axis.text.x = element_blank(),
-        axis.title.x = element_blank(),
-        axis.line.x = element_blank(),
-        axis.title.y = element_text(size = 10),
-        strip.text.y = element_text(angle = 0),
-        plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
-        legend.title = element_text(hjust = 0.5, size = 10),
-        legend.text = element_text(size = 10),
-        legend.key.size = unit(0.8, 'cm'), 
-        legend.key.height = unit(0.8, 'cm'),
-        legend.key.width = unit(0.8, 'cm'),
-        legend.spacing.y = unit(0.8, 'cm'),
-        plot.caption = element_text(hjust = 0.5, size = 10))
-
+  theme(
+    strip.text = element_text(size = 12),
+    axis.text.x = element_blank(),
+    axis.title.x = element_blank(),
+    axis.line.x = element_blank(),
+    axis.title.y = element_text(size = 10),
+    strip.text.y = element_text(angle = 0),
+    plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
+    legend.title = element_text(hjust = 0.5, size = 10),
+    legend.text = element_text(size = 10),
+    legend.key.size = unit(0.8, "cm"),
+    legend.key.height = unit(0.8, "cm"),
+    legend.key.width = unit(0.8, "cm"),
+    legend.spacing.y = unit(0.8, "cm"),
+    plot.caption = element_text(hjust = 0.5, size = 10)
+  )
 
 grafico_avaliacoes_idade
-
 ```
