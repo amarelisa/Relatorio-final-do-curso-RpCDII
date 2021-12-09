@@ -173,21 +173,21 @@ a.sourceLine {
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificando qual mês teve o maior número de filmes: </span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificando qual mês teve o maior número de filmes:</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>recorde_filme_mes <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data_config =</span> <span class="fu">as.Date</span>(<span class="fu">ymd</span>(data_lancamento))) <span class="sc">%&gt;%</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(mês <span class="ot">=</span> <span class="fu">month</span>(data_config)) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(mês, ano), <span class="sc">~</span> <span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(mês<span class="at">_ano =</span> <span class="fu">paste</span>(mês, ano, <span class="at">sep =</span> <span class="st">&quot;/&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(mês_ano) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_filmes =</span> <span class="fu">n_distinct</span>(titulo)) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest_by</span>(mês_ano, n_filmes) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_filmes)) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pos =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&#39;Posição&#39;</span> <span class="ot">=</span> pos, <span class="st">&#39;Mês/Ano&#39;</span> <span class="ot">=</span> mês_ano, <span class="st">&#39;Número de lançamentos&#39;</span> <span class="ot">=</span> n_filmes) <span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(mês <span class="ot">=</span> <span class="fu">month</span>(data_config)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(mês, ano), <span class="sc">~</span> <span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(mês<span class="at">_ano =</span> <span class="fu">paste</span>(mês, ano, <span class="at">sep =</span> <span class="st">&quot;/&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(mês_ano) <span class="sc">%&gt;%</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_filmes =</span> <span class="fu">n_distinct</span>(titulo)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest_by</span>(mês_ano, n_filmes) <span class="sc">%&gt;%</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_filmes)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pos =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&quot;Posição&quot;</span> <span class="ot">=</span> pos, <span class="st">&quot;Mês/Ano&quot;</span> <span class="ot">=</span> mês_ano, <span class="st">&quot;Número de lançamentos&quot;</span> <span class="ot">=</span> n_filmes) <span class="sc">%&gt;%</span></span>
 <span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <pre><code>## Warning: 4563 failed to parse.</code></pre>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>recorde_filme_mes</span></code></pre></div>
@@ -208,21 +208,21 @@ a.sourceLine {
 </tbody>
 </table>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificando qual dia teve o maior número de filmes:</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>recorde_filme_dia <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span> </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data_config =</span> <span class="fu">as.Date</span>(<span class="fu">ymd</span>(data_lancamento))) <span class="sc">%&gt;%</span>  </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(mês <span class="ot">=</span> <span class="fu">month</span>(data_config)) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dia =</span> <span class="fu">day</span>(data_config)) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(dia, mês, ano), <span class="sc">~</span> <span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(dia_mês<span class="at">_ano =</span> <span class="fu">paste</span>(dia, mês, ano, <span class="at">sep =</span> <span class="st">&quot;/&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dia_mês_ano) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_filmes =</span> <span class="fu">n_distinct</span>(titulo)) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest_by</span>(dia_mês_ano, n_filmes) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_filmes)) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pos =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&#39;Posição&#39;</span> <span class="ot">=</span> pos, <span class="st">&#39;Dia/Mês/Ano&#39;</span> <span class="ot">=</span> dia_mês_ano, <span class="st">&#39;Número de Lançamentos&#39;</span> <span class="ot">=</span> n_filmes) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>recorde_filme_dia <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data_config =</span> <span class="fu">as.Date</span>(<span class="fu">ymd</span>(data_lancamento))) <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(mês <span class="ot">=</span> <span class="fu">month</span>(data_config)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dia =</span> <span class="fu">day</span>(data_config)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(dia, mês, ano), <span class="sc">~</span> <span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(dia_mês<span class="at">_ano =</span> <span class="fu">paste</span>(dia, mês, ano, <span class="at">sep =</span> <span class="st">&quot;/&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(dia_mês_ano) <span class="sc">%&gt;%</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_filmes =</span> <span class="fu">n_distinct</span>(titulo)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest_by</span>(dia_mês_ano, n_filmes) <span class="sc">%&gt;%</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_filmes)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pos =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&quot;Posição&quot;</span> <span class="ot">=</span> pos, <span class="st">&quot;Dia/Mês/Ano&quot;</span> <span class="ot">=</span> dia_mês_ano, <span class="st">&quot;Número de Lançamentos&quot;</span> <span class="ot">=</span> n_filmes) <span class="sc">%&gt;%</span></span>
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <pre><code>## Warning: 4563 failed to parse.</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>recorde_filme_dia</span></code></pre></div>
@@ -248,17 +248,17 @@ a.sourceLine {
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identificando o top 5 países com mais filmes na base IMDB:</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>top_paises_filmes <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(pais)) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pais_nova =</span> <span class="fu">str_split</span>(pais, <span class="st">&quot;, &quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(pais_nova) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pais_nova) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(pais)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pais_nova =</span> <span class="fu">str_split</span>(pais, <span class="st">&quot;, &quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(pais_nova) <span class="sc">%&gt;%</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pais_nova) <span class="sc">%&gt;%</span></span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_filmes_pais =</span> <span class="fu">n_distinct</span>(titulo)) <span class="sc">%&gt;%</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest_by</span>(pais_nova, n_filmes_pais) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_filmes_pais)) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowid_to_column</span>(<span class="at">var =</span> <span class="st">&quot;pos&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&#39;Posição&#39;</span> <span class="ot">=</span> pos, <span class="st">&#39;País&#39;</span> <span class="ot">=</span> pais_nova, <span class="st">&#39;Número de filmes&#39;</span> <span class="ot">=</span> n_filmes_pais) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest_by</span>(pais_nova, n_filmes_pais) <span class="sc">%&gt;%</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_filmes_pais)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowid_to_column</span>(<span class="at">var =</span> <span class="st">&quot;pos&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&quot;Posição&quot;</span> <span class="ot">=</span> pos, <span class="st">&quot;País&quot;</span> <span class="ot">=</span> pais_nova, <span class="st">&quot;Número de filmes&quot;</span> <span class="ot">=</span> n_filmes_pais) <span class="sc">%&gt;%</span></span>
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>top_paises_filmes</span></code></pre></div>
@@ -309,33 +309,36 @@ a.sourceLine {
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Identificando quais são as moedas dos orçamentos e das receitas dos filmes contidos na base IMDB:</span></span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>moedas_receita_orcamento <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span> </span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(orcamento, receita), <span class="sc">~!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>moedas_receita_orcamento <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(orcamento, receita), <span class="sc">~</span> <span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(</span>
 <span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">c</span>(orcamento, receita),</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">str_extract</span>((.x), <span class="at">pattern =</span> <span class="fu">c</span>(<span class="st">&quot;^.[[:blank:][:digit:]]&quot;</span>, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">X+?[[:blank:][:digit:]]&quot;</span>)))) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(orcamento, receita), <span class="sc">~!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">c</span>(orcamento, receita),</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">str_replace_all</span>((.x), <span class="at">pattern =</span> <span class="st">&quot; &quot;</span>, <span class="st">&quot;&quot;</span>)))</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Importando banco de dados que contém mais informações sobre as moedas que foram identificadas:</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">str_extract</span>((.x), <span class="at">pattern =</span> <span class="fu">c</span>(<span class="st">&quot;^.[[:blank:][:digit:]]&quot;</span>, <span class="st">&quot;</span><span class="sc">\\</span><span class="st">X+?[[:blank:][:digit:]]&quot;</span>))</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(orcamento, receita), <span class="sc">~</span> <span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">c</span>(orcamento, receita),</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">str_replace_all</span>((.x), <span class="at">pattern =</span> <span class="st">&quot; &quot;</span>, <span class="st">&quot;&quot;</span>)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  ))</span>
 <span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>lista_moedas <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;D:/GitHub/RelatorioFinal2/data_raw/lista_moedas.xlsx&quot;</span>)</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(lista_moedas)</span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Listando as moedas dos orçamentos dos filmes contidos na base IMDB:</span></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>moedas_orcamento <span class="ot">&lt;-</span> moedas_receita_orcamento <span class="sc">%&gt;%</span></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest_by</span>(orcamento) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">orcamento =</span> <span class="fu">case_when</span>(</span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>    orcamento <span class="sc">==</span> <span class="st">&quot;$&quot;</span> <span class="sc">~</span> <span class="st">&quot;USD&quot;</span>,</span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="fu">as.character</span>(<span class="fu">as.character</span>(orcamento)))) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(lista_moedas, <span class="at">by =</span> <span class="st">&quot;orcamento&quot;</span>, <span class="at">copy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&#39;Código das moedas dos orçamentos dos filmes&#39;</span> <span class="ot">=</span> orcamento, <span class="st">&#39;Nome da moeda&#39;</span> <span class="ot">=</span> nome) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>moedas_orcamento</span></code></pre></div>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Importando banco de dados que contém mais informações sobre as moedas que foram identificadas:</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>lista_moedas <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;D:/GitHub/RelatorioFinal2/data_raw/lista_moedas.xlsx&quot;</span>)</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span>(lista_moedas)</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Listando as moedas dos orçamentos dos filmes contidos na base IMDB:</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>moedas_orcamento <span class="ot">&lt;-</span> moedas_receita_orcamento <span class="sc">%&gt;%</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest_by</span>(orcamento) <span class="sc">%&gt;%</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">orcamento =</span> <span class="fu">case_when</span>(</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>    orcamento <span class="sc">==</span> <span class="st">&quot;$&quot;</span> <span class="sc">~</span> <span class="st">&quot;USD&quot;</span>,</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="fu">as.character</span>(<span class="fu">as.character</span>(orcamento))</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(lista_moedas, <span class="at">by =</span> <span class="st">&quot;orcamento&quot;</span>, <span class="at">copy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&quot;Código das moedas dos orçamentos dos filmes&quot;</span> <span class="ot">=</span> orcamento, <span class="st">&quot;Nome da moeda&quot;</span> <span class="ot">=</span> nome) <span class="sc">%&gt;%</span></span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>moedas_orcamento</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -563,17 +566,18 @@ a.sourceLine {
 </tbody>
 </table>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Listando as moedas das receitas dos filmes contidos na base IMDB:</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>moedas_receita <span class="ot">&lt;-</span> moedas_receita_orcamento <span class="sc">%&gt;%</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest_by</span>(receita) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest_by</span>(receita) <span class="sc">%&gt;%</span></span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">receita =</span> <span class="fu">case_when</span>(</span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    receita <span class="sc">==</span> <span class="st">&quot;$&quot;</span> <span class="sc">~</span> <span class="st">&quot;USD&quot;</span>,</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="fu">as.character</span>(<span class="fu">as.character</span>(receita)))) <span class="sc">%&gt;%</span> </span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(lista_moedas, <span class="at">by =</span> <span class="st">&quot;receita&quot;</span>, <span class="at">copy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&#39;Código das moedas das receitas dos filmes&#39;</span> <span class="ot">=</span> receita, <span class="st">&#39;Nome da moeda&#39;</span> <span class="ot">=</span> nome) <span class="sc">%&gt;%</span> </span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>moedas_receita</span></code></pre></div>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="fu">as.character</span>(<span class="fu">as.character</span>(receita))</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(lista_moedas, <span class="at">by =</span> <span class="st">&quot;receita&quot;</span>, <span class="at">copy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&quot;Código das moedas das receitas dos filmes&quot;</span> <span class="ot">=</span> receita, <span class="st">&quot;Nome da moeda&quot;</span> <span class="ot">=</span> nome) <span class="sc">%&gt;%</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>moedas_receita</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -593,25 +597,27 @@ a.sourceLine {
 </ol>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identificando qual é o gênero do filme que teve o maior lucro</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>genero_maior_lucro <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span> </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(orcamento, receita), <span class="sc">~!</span><span class="fu">is.na</span>(.), <span class="sc">~</span> <span class="fu">str_detect</span>((.x), <span class="at">pattern =</span> <span class="st">&quot;^.[[:blank:][:digit:]]&quot;</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>genero_maior_lucro <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(orcamento, receita), <span class="sc">~</span> <span class="sc">!</span><span class="fu">is.na</span>(.), <span class="sc">~</span> <span class="fu">str_detect</span>((.x), <span class="at">pattern =</span> <span class="st">&quot;^.[[:blank:][:digit:]]&quot;</span>))) <span class="sc">%&gt;%</span></span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">c</span>(orcamento, receita),</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="fu">c</span>(<span class="sc">~</span> <span class="fu">str_extract</span>((.x), <span class="at">pattern =</span> <span class="st">&quot;.[[:digit:]]+!*&quot;</span>)))) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">c</span>(orcamento_1, receita_1),</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">as.numeric</span>(.x))) <span class="sc">%&gt;%</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lucro =</span> receita_1 <span class="sc">-</span> orcamento_1) <span class="sc">%&gt;%</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(genero, lucro), <span class="sc">~!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genero =</span> <span class="fu">str_split</span>(genero, <span class="st">&quot;, &quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(genero) <span class="sc">%&gt;%</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest_by</span>(titulo, genero, lucro) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(lucro)) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">1</span>, lucro) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&quot;Título&quot;</span><span class="ot">=</span> titulo, <span class="st">&quot;Gênero&quot;</span> <span class="ot">=</span> genero, <span class="st">&quot;Lucro&quot;</span> <span class="ot">=</span> lucro) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>genero_maior_lucro</span></code></pre></div>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="fu">c</span>(<span class="sc">~</span> <span class="fu">str_extract</span>((.x), <span class="at">pattern =</span> <span class="st">&quot;.[[:digit:]]+!*&quot;</span>))</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">c</span>(orcamento_1, receita_1),</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">as.numeric</span>(.x)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lucro =</span> receita_1 <span class="sc">-</span> orcamento_1) <span class="sc">%&gt;%</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(genero, lucro), <span class="sc">~</span> <span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genero =</span> <span class="fu">str_split</span>(genero, <span class="st">&quot;, &quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(genero) <span class="sc">%&gt;%</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest_by</span>(titulo, genero, lucro) <span class="sc">%&gt;%</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(lucro)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">1</span>, lucro) <span class="sc">%&gt;%</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&quot;Título&quot;</span> <span class="ot">=</span> titulo, <span class="st">&quot;Gênero&quot;</span> <span class="ot">=</span> genero, <span class="st">&quot;Lucro&quot;</span> <span class="ot">=</span> lucro) <span class="sc">%&gt;%</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>genero_maior_lucro</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -630,15 +636,15 @@ a.sourceLine {
 </table>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identificando qual é o gênero do filme que obteve a maior nota média</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>genero_maior_nota <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span> </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(imdb_avaliacoes, <span class="at">by =</span> <span class="st">&quot;id_filme&quot;</span>, <span class="at">copy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(genero, nota_media), <span class="sc">~!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genero =</span> <span class="fu">str_split</span>(genero, <span class="st">&quot;, &quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(genero) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest_by</span>(titulo, genero, nota_media) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(nota_media)) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">1</span>, nota_media) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&#39;Título&#39;</span> <span class="ot">=</span> titulo, <span class="st">&#39;Gênero&#39;</span> <span class="ot">=</span> genero, <span class="st">&#39;Nota média&#39;</span> <span class="ot">=</span> nota_media) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>genero_maior_nota <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(imdb_avaliacoes, <span class="at">by =</span> <span class="st">&quot;id_filme&quot;</span>, <span class="at">copy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(genero, nota_media), <span class="sc">~</span> <span class="sc">!</span><span class="fu">is.na</span>(.))) <span class="sc">%&gt;%</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genero =</span> <span class="fu">str_split</span>(genero, <span class="st">&quot;, &quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(genero) <span class="sc">%&gt;%</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest_by</span>(titulo, genero, nota_media) <span class="sc">%&gt;%</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(nota_media)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">1</span>, nota_media) <span class="sc">%&gt;%</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&quot;Título&quot;</span> <span class="ot">=</span> titulo, <span class="st">&quot;Gênero&quot;</span> <span class="ot">=</span> genero, <span class="st">&quot;Nota média&quot;</span> <span class="ot">=</span> nota_media) <span class="sc">%&gt;%</span></span>
 <span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span>
 <span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>genero_maior_nota</span></code></pre></div>
@@ -666,9 +672,9 @@ a.sourceLine {
 </ol>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verificando qual é o nome do diretor do filme</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>hair_nome_direcao <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span> </span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(titulo, <span class="at">pattern =</span> <span class="st">&quot;Hair$&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&#39;Nome do diretor(a)&#39;</span> <span class="ot">=</span> direcao)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>hair_nome_direcao <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(titulo, <span class="at">pattern =</span> <span class="st">&quot;Hair$&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&quot;Nome do diretor(a)&quot;</span> <span class="ot">=</span> direcao)</span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>hair_nome_direcao</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 1
@@ -677,59 +683,63 @@ a.sourceLine {
 ## 1 Milos Forman</code></pre>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculando a idade que o diretor de &quot;Hair&quot; tinha quando faleceu</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>milos_idade_falecimento <span class="ot">&lt;-</span> imdb_pessoas <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>milos_idade_falecimento <span class="ot">&lt;-</span> imdb_pessoas <span class="sc">%&gt;%</span></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(nome, <span class="at">pattern =</span> <span class="st">&quot;Milos Forman&quot;</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">c</span>(data_nascimento, data_falecimento),</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">as.Date</span>(<span class="fu">ymd</span>(.)))) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">idade_falecimento =</span> <span class="fu">as.period</span>(data_falecimento <span class="sc">-</span> data_nascimento)<span class="sc">/</span><span class="fu">years</span>(<span class="dv">1</span>))</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculando quantos filmes, além de &quot;Hair&quot;, ele dirigiu</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>milos_n_filmes <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span> </span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(direcao, <span class="at">pattern =</span> <span class="st">&quot;Milos Forman&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(titulo, <span class="at">pattern =</span> <span class="st">&quot;Hair$&quot;</span>, <span class="at">negate =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n_filmes =</span> <span class="fu">n_distinct</span>(titulo))</span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculando os lucros médios dos filmes dirigidos por Milos Forman</span></span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>milos_lucro_medio <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span> </span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(direcao, <span class="at">pattern =</span> <span class="st">&quot;Milos Forman&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(receita, orcamento), <span class="sc">~!</span><span class="fu">is.na</span>(.), <span class="fu">str_detect</span>((.x), <span class="at">pattern =</span> <span class="st">&quot;^.[[:blank:][:digit:]]&quot;</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">.cols =</span> <span class="fu">c</span>(orcamento, receita),</span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">.fns =</span> <span class="sc">~</span> (<span class="fu">str_extract</span>((.x), <span class="at">pattern =</span> <span class="st">&quot;.[[:digit:]]+!*&quot;</span>)))) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">c</span>(orcamento, receita),</span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">as.numeric</span>(.x))) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lucro =</span> receita <span class="sc">-</span> orcamento) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">lucro_medio =</span> <span class="fu">mean</span>(lucro))</span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculando a frequência relativa de cada um dos gêneros dos filmes que Milos Forman dirigiu</span></span>
-<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>milos_generos_freq <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span> </span>
-<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(direcao, <span class="at">pattern =</span> <span class="st">&quot;Milos Forman&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genero =</span> <span class="fu">str_split</span>(genero, <span class="at">pattern =</span> <span class="st">&quot;, &quot;</span>)) <span class="sc">%&gt;%</span>   <span class="fu">unnest</span>(genero) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">freq_genero =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">freq_genero =</span> freq_genero<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">freq_genero =</span> <span class="fu">round</span>(freq_genero, <span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(freq_genero)) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&#39;Gênero&#39;</span> <span class="ot">=</span> genero, <span class="st">&#39;Frequência relativa&#39;</span> <span class="ot">=</span> freq_genero) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">as.Date</span>(<span class="fu">ymd</span>(.))</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">idade_falecimento =</span> <span class="fu">as.period</span>(data_falecimento <span class="sc">-</span> data_nascimento) <span class="sc">/</span> <span class="fu">years</span>(<span class="dv">1</span>))</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculando quantos filmes, além de &quot;Hair&quot;, ele dirigiu</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>milos_n_filmes <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(direcao, <span class="at">pattern =</span> <span class="st">&quot;Milos Forman&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(titulo, <span class="at">pattern =</span> <span class="st">&quot;Hair$&quot;</span>, <span class="at">negate =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n_filmes =</span> <span class="fu">n_distinct</span>(titulo))</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculando os lucros médios dos filmes dirigidos por Milos Forman</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>milos_lucro_medio <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(direcao, <span class="at">pattern =</span> <span class="st">&quot;Milos Forman&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(receita, orcamento), <span class="sc">~</span> <span class="sc">!</span><span class="fu">is.na</span>(.), <span class="fu">str_detect</span>((.x), <span class="at">pattern =</span> <span class="st">&quot;^.[[:blank:][:digit:]]&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">c</span>(orcamento, receita),</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span> (<span class="fu">str_extract</span>((.x), <span class="at">pattern =</span> <span class="st">&quot;.[[:digit:]]+!*&quot;</span>))</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">c</span>(orcamento, receita),</span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">as.numeric</span>(.x)</span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lucro =</span> receita <span class="sc">-</span> orcamento) <span class="sc">%&gt;%</span></span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">lucro_medio =</span> <span class="fu">mean</span>(lucro))</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculando a frequência relativa de cada um dos gêneros dos filmes que Milos Forman dirigiu</span></span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>milos_generos_freq <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span></span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(direcao, <span class="at">pattern =</span> <span class="st">&quot;Milos Forman&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genero =</span> <span class="fu">str_split</span>(genero, <span class="at">pattern =</span> <span class="st">&quot;, &quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(genero) <span class="sc">%&gt;%</span></span>
+<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span></span>
+<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">freq_genero =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">freq_genero =</span> freq_genero <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">freq_genero =</span> <span class="fu">round</span>(freq_genero, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(freq_genero)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&quot;Gênero&quot;</span> <span class="ot">=</span> genero, <span class="st">&quot;Frequência relativa&quot;</span> <span class="ot">=</span> freq_genero) <span class="sc">%&gt;%</span></span>
+<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span></code></pre></div>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Qual a posição desse filme no ranking de notas do IMDB? E no ranking de lucro (considerando apenas valores em dólar)?</li>
 </ol>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculando a posição de &quot;Hair&quot; no ranking de notas do IMDB</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>posicao_nota_hair <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span> </span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a> <span class="fu">left_join</span>(imdb_avaliacoes, <span class="at">by =</span> <span class="st">&quot;id_filme&quot;</span>, <span class="at">copy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(nota_media) <span class="sc">%&gt;%</span> </span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(nota_media)) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>posicao_nota_hair <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(imdb_avaliacoes, <span class="at">by =</span> <span class="st">&quot;id_filme&quot;</span>, <span class="at">copy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(nota_media) <span class="sc">%&gt;%</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(nota_media)) <span class="sc">%&gt;%</span></span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowid_to_column</span>(<span class="at">var =</span> <span class="st">&quot;pos&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(titulo, <span class="at">pattern =</span> <span class="st">&quot;Hair$&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&#39;Filme&#39;</span> <span class="ot">=</span> titulo, <span class="st">&#39;Nota média&#39;</span> <span class="ot">=</span> nota_media, <span class="st">&#39;Posição&#39;</span> <span class="ot">=</span> pos) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(titulo, <span class="at">pattern =</span> <span class="st">&quot;Hair$&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&quot;Filme&quot;</span> <span class="ot">=</span> titulo, <span class="st">&quot;Nota média&quot;</span> <span class="ot">=</span> nota_media, <span class="st">&quot;Posição&quot;</span> <span class="ot">=</span> pos) <span class="sc">%&gt;%</span></span>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span>
 <span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>posicao_nota_hair</span></code></pre></div>
@@ -750,24 +760,26 @@ a.sourceLine {
 </tbody>
 </table>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculando a posição de &quot;Hair&quot; no ranking de notas do IMDB</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>posicao_lucro_hair <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span> </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(receita, orcamento), <span class="sc">~!</span><span class="fu">is.na</span>(.), <span class="fu">str_detect</span>((.x), <span class="at">pattern =</span> <span class="st">&quot;^.[[:blank:][:digit:]]&quot;</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>posicao_lucro_hair <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">across</span>(<span class="fu">c</span>(receita, orcamento), <span class="sc">~</span> <span class="sc">!</span><span class="fu">is.na</span>(.), <span class="fu">str_detect</span>((.x), <span class="at">pattern =</span> <span class="st">&quot;^.[[:blank:][:digit:]]&quot;</span>))) <span class="sc">%&gt;%</span></span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">.cols =</span> <span class="fu">c</span>(orcamento, receita),</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">.fns =</span> <span class="sc">~</span> (<span class="fu">str_extract</span>((.x), <span class="at">pattern =</span> <span class="st">&quot;.[[:digit:]]+!*&quot;</span>)))) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">c</span>(orcamento, receita),</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">as.numeric</span>(.x))) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lucro =</span> receita <span class="sc">-</span> orcamento) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(lucro) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(lucro)) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowid_to_column</span>(<span class="at">var =</span> <span class="st">&quot;pos&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(titulo, <span class="st">&quot;Hair$&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&quot;Filme&quot;</span> <span class="ot">=</span> titulo, <span class="st">&quot;Lucro&quot;</span> <span class="ot">=</span> lucro, <span class="st">&quot;Posição&quot;</span> <span class="ot">=</span> pos) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>posicao_lucro_hair</span></code></pre></div>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">c</span>(orcamento, receita),</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span> (<span class="fu">str_extract</span>((.x), <span class="at">pattern =</span> <span class="st">&quot;.[[:digit:]]+!*&quot;</span>))</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.cols =</span> <span class="fu">c</span>(orcamento, receita),</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">.fns =</span> <span class="sc">~</span> <span class="fu">as.numeric</span>(.x)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lucro =</span> receita <span class="sc">-</span> orcamento) <span class="sc">%&gt;%</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(lucro) <span class="sc">%&gt;%</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(lucro)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowid_to_column</span>(<span class="at">var =</span> <span class="st">&quot;pos&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(titulo, <span class="st">&quot;Hair$&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">&quot;Filme&quot;</span> <span class="ot">=</span> titulo, <span class="st">&quot;Lucro&quot;</span> <span class="ot">=</span> lucro, <span class="st">&quot;Posição&quot;</span> <span class="ot">=</span> pos) <span class="sc">%&gt;%</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>()</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>posicao_lucro_hair</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -789,9 +801,9 @@ a.sourceLine {
 </ol>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data de lançamento do filme hair</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>data_lancamento_hair <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span> </span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(titulo, <span class="at">pattern =</span> <span class="st">&quot;Hair$&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">data_lancamento =</span> <span class="fu">as.Date</span>(<span class="fu">ymd</span>(data_lancamento))) </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>data_lancamento_hair <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(titulo, <span class="at">pattern =</span> <span class="st">&quot;Hair$&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">data_lancamento =</span> <span class="fu">as.Date</span>(<span class="fu">ymd</span>(data_lancamento)))</span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>data_lancamento_hair</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 1
@@ -800,8 +812,8 @@ a.sourceLine {
 ## 1 1979-05-16</code></pre>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Outros filmes que foram lançados no mesmo dia</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>outros_filmes_lancados <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span> </span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(titulo, <span class="at">pattern =</span> <span class="st">&quot;Hair$&quot;</span>, <span class="at">negate =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>outros_filmes_lancados <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(titulo, <span class="at">pattern =</span> <span class="st">&quot;Hair$&quot;</span>, <span class="at">negate =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(data_lancamento, <span class="at">pattern =</span> <span class="st">&quot;1979-05-16&quot;</span>))</span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>outros_filmes_lancados</span></code></pre></div>
@@ -815,10 +827,10 @@ a.sourceLine {
 ## #   num_criticas_publico &lt;dbl&gt;, num_criticas_critica &lt;dbl&gt;</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculando a minha idade quando o filme foi lançado</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>minha_idade <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span> </span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(titulo, <span class="at">pattern =</span> <span class="st">&quot;Hair$&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data_lancamento =</span> <span class="fu">as.Date</span>(<span class="fu">ymd</span>(data_lancamento)))  <span class="sc">%&gt;%</span> </span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">minha_idade =</span> <span class="fu">as.period</span>(data_lancamento <span class="sc">-</span> <span class="fu">as.Date</span>(<span class="fu">dmy</span>(<span class="st">&quot;05 nov 1997&quot;</span>)))<span class="sc">/</span><span class="fu">years</span>(<span class="dv">1</span>))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>minha_idade <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(titulo, <span class="at">pattern =</span> <span class="st">&quot;Hair$&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">data_lancamento =</span> <span class="fu">as.Date</span>(<span class="fu">ymd</span>(data_lancamento))) <span class="sc">%&gt;%</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">minha_idade =</span> <span class="fu">as.period</span>(data_lancamento <span class="sc">-</span> <span class="fu">as.Date</span>(<span class="fu">dmy</span>(<span class="st">&quot;05 nov 1997&quot;</span>))) <span class="sc">/</span> <span class="fu">years</span>(<span class="dv">1</span>))</span>
 <span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>minha_idade</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 1
@@ -832,34 +844,47 @@ a.sourceLine {
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Extraindo o ID do filme para poder identificá-lo na base das avaliações:</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>id_hair <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span> </span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(titulo, <span class="at">pattern =</span> <span class="st">&quot;Hair$&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id_filme)</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>id_hair</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 1
-##   id_filme 
-##   &lt;chr&gt;    
-## 1 tt0079261</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico das avaliações por idade</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>avaliacoes_idade_hair <span class="ot">&lt;-</span> imdb_avaliacoes <span class="sc">%&gt;%</span> </span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(id_filme, <span class="at">pattern =</span> <span class="st">&quot;tt0079261&quot;</span>)) </span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>avaliacoes_idade_hair</span></code></pre></div>
-<pre><code>## # A tibble: 1 x 19
-##   id_filme  num_avaliacoes nota_media nota_mediana nota_media_ponderada
-##   &lt;chr&gt;              &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;                &lt;dbl&gt;
-## 1 tt0079261          34338        7.7            8                  7.6
-## # ... with 14 more variables: nota_media_idade_0_18 &lt;dbl&gt;,
-## #   num_votos_idade_0_18 &lt;dbl&gt;, nota_media_idade_18_30 &lt;dbl&gt;,
-## #   num_votos_idade_18_30 &lt;dbl&gt;, nota_media_idade_30_45 &lt;dbl&gt;,
-## #   num_votos_idade_30_45 &lt;dbl&gt;, nota_media_idade_45_mais &lt;dbl&gt;,
-## #   num_votos_idade_45_mais &lt;dbl&gt;, nota_media_top_1000_avaliadores &lt;dbl&gt;,
-## #   num_votos_top_1000_avaliadores &lt;dbl&gt;, nota_media_eua &lt;dbl&gt;,
-## #   num_votos_eua &lt;dbl&gt;, nota_media_fora_eua &lt;dbl&gt;, ...</code></pre>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico das avaliações por idade</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>notas <span class="ot">&lt;-</span> imdb_completa <span class="sc">%&gt;%</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(imdb_avaliacoes, <span class="at">by =</span> <span class="st">&quot;id_filme&quot;</span>, <span class="at">copy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(titulo, <span class="at">pattern =</span> <span class="st">&quot;Hair$&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    nota_media_idade_0_18, nota_media_idade_18_30,</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    nota_media_idade_30_45, nota_media_idade_45_mais</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">nota_media =</span> <span class="fu">as.numeric</span>(<span class="fu">c</span>(nota_media_idade_0_18, nota_media_idade_18_30, nota_media_idade_30_45, nota_media_idade_45_mais))) <span class="sc">%&gt;%</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowid_to_column</span>()</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>faixa_etaria <span class="ot">&lt;-</span> <span class="fu">list</span>((<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>), <span class="fu">c</span>(</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;0 a 18 anos&quot;</span>, <span class="st">&quot;18 a 30 anos&quot;</span>, <span class="st">&quot;30 a 45 anos&quot;</span>,</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;45 anos ou mais&quot;</span></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(faixa_etaria) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;rowid&quot;</span>, <span class="st">&quot;faixa_etaria&quot;</span>)</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>faixa_etaria <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(faixa_etaria)</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>grafico_avaliacoes_idade <span class="ot">&lt;-</span> notas <span class="sc">%&gt;%</span></span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(faixa_etaria, <span class="at">by =</span> <span class="st">&quot;rowid&quot;</span>, <span class="at">copy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(nota_media, faixa_etaria) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> faixa_etaria, <span class="at">y =</span> nota_media)) <span class="sc">+</span></span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>() <span class="sc">+</span></span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Figura 1 - Nota média das avaliações recebidas pelo filme </span><span class="sc">\&quot;</span><span class="st">Hair</span><span class="sc">\&quot;</span><span class="st"> por faixa etária&quot;</span>,</span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Nota média das avaliações&quot;</span>,</span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Faixa etária&quot;</span>,</span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;Fonte: IMDB&quot;</span>)<span class="sc">+</span></span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text.y =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">0</span>),</span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a>grafico_avaliacoes_idade</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 </div><!-- /.entry-content -->
 </article>
 </div><!-- /#main -->

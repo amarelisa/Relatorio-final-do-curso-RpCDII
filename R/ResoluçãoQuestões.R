@@ -78,6 +78,7 @@ recorde_filme_dia <- imdb_completa %>%
 recorde_filme_dia
 
 # 2. Qual o top 5 países com mais filmes na base?
+
 # Identificando o top 5 países com mais filmes na base IMDB:
 
 top_paises_filmes <- imdb_completa %>%
@@ -154,6 +155,7 @@ moedas_receita
 
 # 4. Considerando apenas orçamentos e receitas em dólar ($), qual o gênero com
 # maior lucro? E com maior nota média?
+
 # Identificando qual é o gênero do filme que teve o maior lucro
 
 genero_maior_lucro <- imdb_completa %>% 
@@ -253,6 +255,7 @@ milos_generos_freq <- imdb_completa %>%
 
 # b) Qual a posição desse filme no ranking de notas do IMDB? E no ranking de 
 # lucro (considerando apenas valores em dólar)?
+
 # Calculando a posição de "Hair" no ranking de notas do IMDB
 
 posicao_nota_hair <- imdb_completa %>% 
@@ -289,6 +292,7 @@ posicao_lucro_hair
 
 # c) Em que dia esse filme foi lançado? E dia da semana? Algum outro filme foi 
 # lançado no mesmo dia? Quantos anos você tinha nesse dia?
+
 # Data de lançamento do filme hair
 
 data_lancamento_hair <- imdb_completa %>% 
@@ -316,22 +320,21 @@ minha_idade
 
 # d) Faça um gráfico representando a distribuição da nota atribuída a esse filme 
 # por idade (base imdb_avaliacoes).
+
 # Carregando os pacotes que irei utilizar para elaborar este gráfico:
 
 library(ggplot2)
+library(purrr)
+library(tibble)
 
-# Extraindo o ID do filme para poder identificá-lo na base das avaliações:
+# Elaborando o gráfico de avaliações por idade
 
-id_hair <- imdb_completa %>% 
+gtab <- function(name, a) { tibble::tibble(!!name := a) }
+
+grafico_avaliacoes_idade <- imdb_completa %>% 
+  left_join(imdb_avaliacoes, by = "id_filme", copy = TRUE) %>% 
   filter(str_detect(titulo, pattern = "Hair$")) %>% 
-  select(id_filme)
+  mutate(faixa_etaria = )
 
-id_hair
 
-# Gráfico das avaliações por idade
-
-avaliacoes_idade_hair <- imdb_avaliacoes %>% 
-  filter(str_detect(id_filme, pattern = "tt0079261")) 
-
-avaliacoes_idade_hair
 
