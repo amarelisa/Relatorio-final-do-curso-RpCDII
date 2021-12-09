@@ -346,10 +346,23 @@ names(faixa_etaria) <- c("rowid", "faixa_etaria")
 
 faixa_etaria <- as.data.frame(faixa_etaria)
 
-grafico_avaliacoes_idade <- notas %>% 
-  left_join(faixa_etaria, by = "rowid", copy = TRUE) %>% 
+grafico_avaliacoes_idade <- notas %>%
+  left_join(faixa_etaria, by = "rowid", copy = TRUE) %>%
+  select(nota_media, faixa_etaria) %>% 
   ggplot() +
-  geom_col(aes(x = faixa_etaria, y = nota_media))
+  geom_col(aes(x = faixa_etaria, y = nota_media, fill = faixa_etaria)) +
+  scale_fill_discrete() +
+  theme(strip.text = element_text(size = 12)) +
+  labs(title = "Figura 1 - Nota média das avaliações recebidas pelo filme \"Hair\" por faixa etária",
+       y = "Nota média das avaliações",
+       x = "Faixa etária",
+       caption = "Fonte: IMDB")+
+  theme_minimal() +
+  theme(axis.title.x = element_blank(),
+        strip.text.y = element_text(angle = 0),
+        plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
+        plot.subtitle = element_text(hjust = 1),
+        plot.caption = element_text(hjust = 0.5))
 
 grafico_avaliacoes_idade
 
