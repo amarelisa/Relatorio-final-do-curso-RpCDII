@@ -281,10 +281,16 @@ O gênero do filme com maior nota média foi:
 
 Meu filme favorito é o musical "Hair". Se você nunca o assistiu, recomendo que assista ao clipe da música "The Flesh Failures", mas **atenção**, este vídeo **contém spoilers**:
 
+<<<<<<< HEAD
 <iframe style="display: block; margin: auto;" width="560" height="315" src="https://www.youtube.com/embed/NaAC9vDFozc" frameborder="0" gesture="media" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 
 **OBS.:** Esta é a última cena do filme e, por coincidência, a minha preferida. Como costumava vê-lo com minha família quando era criança, demorei muito tempo para entender os sentimentos envolvidos neste. Desde que supostamente os entendi, vejo esta cena com alguma frequência.
+=======
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=0mH23CAV7jE" frameborder="0"     allowfullscreen></iframe>
+
+OBS.: Esta é a última cena do filme e, por coincidência, a minha preferida. Como costumava vê-lo com minha família quando era criança, demorei muito tempo para entender os sentimentos envolvidos neste. Desde que supostamente os entendi, vejo esta cena com alguma frequência.
+>>>>>>> ea66d6d7199f123fdb166501d41eb3edc85fdac9
 :::
 
 **a) Quem dirigiu o filme? Faça uma ficha dessa pessoa: idade (hoje em dia ou data de falecimento), onde nasceu, quantos filmes já dirigiu, qual o lucro médio dos filmes que dirigiu (considerando apenas valores em dólar) e outras informações que achar interessante (base `imdb_pessoas`).**
