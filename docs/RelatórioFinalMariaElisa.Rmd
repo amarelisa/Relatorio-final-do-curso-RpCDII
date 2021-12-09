@@ -4,7 +4,8 @@ author: "Maria Elisa Rocha Couto Gomes"
 output: 
     prettydoc::html_pretty:
       theme: hpstr
-      highlight: github  
+      highlight: github
+      self_contained: FALSE  
 ---
 
 ::: {style="text-align: justify"}
@@ -278,9 +279,12 @@ O gênero do filme com maior nota média foi:
 ::: {style="text-align: justify"}
 **5. Dentre os filmes na base `imdb_completa`, escolha o seu favorito. Então faça os itens a seguir:**
 
-Meu filme favorito é o musical "Hair". Se você nunca o assistiu, recomendo que assista ao clipe da música "The Flesh Failures", mas **atenção**, este vídeo **contém spoilers**.
+Meu filme favorito é o musical "Hair". Se você nunca o assistiu, recomendo que assista ao clipe da música "The Flesh Failures", mas **atenção**, este vídeo **contém spoilers**:
 
-[![IMAGE_ALT](https://img.youtube.com/vi/0mH23CAV7jE/1.jpg)](https://www.youtube.com/watch?v=0mH23CAV7jE)
+<iframe width="560" height="315" src="https://www.youtube.com/watch?v=0mH23CAV7jE" frameborder="0"     allowfullscreen></iframe>
+
+OBS.: Esta é a última cena do filme e, por coincidência, a minha preferida. Como costumava vê-lo com minha família quando era criança, demorei muito tempo para entender os sentimentos envolvidos neste. Desde que supostamente os entendi, vejo esta cena com alguma frequência.
+:::
 
 **a) Quem dirigiu o filme? Faça uma ficha dessa pessoa: idade (hoje em dia ou data de falecimento), onde nasceu, quantos filmes já dirigiu, qual o lucro médio dos filmes que dirigiu (considerando apenas valores em dólar) e outras informações que achar interessante (base `imdb_pessoas`).**
 :::
