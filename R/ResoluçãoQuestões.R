@@ -1,10 +1,12 @@
+# Relatório final do curso "Ciência de Dados II" da Curso-R
+# Maria Elisa Rocha Couto Gomes
 # Conectando o GitHub
 
 library(usethis)
 use_git()
 use_github()
 
-# Importando os bancos de dados a serem utilizados
+# Instalando pacote "basesCursoR"
 
 remotes::install_github("curso-r/basesCursoR", force = TRUE)
 
@@ -314,7 +316,8 @@ outros_filmes_lancados
 minha_idade <- imdb_completa %>% 
   filter(str_detect(titulo, pattern = "Hair$")) %>% 
   mutate(data_lancamento = as.Date(ymd(data_lancamento)))  %>% 
-  summarise(minha_idade = as.period(data_lancamento - as.Date(dmy("05 nov 1997")))/years(1))
+  summarise(minha_idade = as.period(data_lancamento - as.Date(dmy("05 nov 1997")))/years(1)) %>% 
+  mutate(minha_idade = round(minha_idade, 2))
 
 minha_idade
 
@@ -324,10 +327,9 @@ minha_idade
 # Carregando os pacotes que irei utilizar para elaborar este gráfico:
 
 library(ggplot2)
-library(purrr)
-library(tibble)
 
-# Elaborando o gráfico de avaliações por idade
+# Selecionando os valores das variáveis correspondentes às notas médias por 
+# faixa etária
 
 notas <- imdb_completa %>% 
   left_join(imdb_avaliacoes, by = "id_filme", copy = TRUE) %>% 
@@ -339,6 +341,9 @@ notas <- imdb_completa %>%
                                       nota_media_idade_30_45,
                                       nota_media_idade_45_mais))) %>% 
   rowid_to_column()
+
+# Criando uma lista com categorias para cada uma das faixas etárias cujas notas 
+# médias estão disponíveis em imdb_avaliacoes
   
 faixa_etaria <- list((1:4), c("0 a 18 anos", "18 a 30 anos", "30 a 45 anos",
                        "45 anos ou mais"))
@@ -346,25 +351,38 @@ names(faixa_etaria) <- c("rowid", "faixa_etaria")
 
 faixa_etaria <- as.data.frame(faixa_etaria)
 
+# Elaborando gráfico sobre as notas médias das avaliações do filme "Hair" por 
+# faixa etária
+
 grafico_avaliacoes_idade <- notas %>%
   left_join(faixa_etaria, by = "rowid", copy = TRUE) %>%
   select(nota_media, faixa_etaria) %>% 
-  ggplot() +
-  geom_col(aes(x = faixa_etaria, y = nota_media, fill = faixa_etaria)) +
+  ggplot(aes(x = faixa_etaria, y = nota_media, fill = faixa_etaria)) +
+  geom_col(stat = "identity", show.legend = TRUE) +
+  geom_label(aes(label = nota_media), show.legend = FALSE) +
   scale_fill_discrete() +
-  theme(strip.text = element_text(size = 12)) +
+  ylim(0, 10) +
   labs(title = "Figura 1 - Nota média das avaliações recebidas pelo filme \"Hair\" por faixa etária",
        y = "Nota média das avaliações",
-       x = "Faixa etária",
+      fill = "Faixa etária",
        caption = "Fonte: IMDB")+
   theme_minimal() +
-  theme(axis.title.x = element_blank(),
+  theme(strip.text = element_text(size = 12),
+        axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
+        axis.line.x = element_blank(),
+        axis.title.y = element_text(size = 8),
         strip.text.y = element_text(angle = 0),
-        plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
-        plot.subtitle = element_text(hjust = 1),
+        plot.title = element_text(size = 10, face = "bold", hjust = 0.5),
+        legend.title = element_text(hjust = 0.5, size = 8),
+        legend.text = element_text(size = 7.5),
+        legend.key.size = unit(0.5, 'cm'), 
+        legend.key.height = unit(0.5, 'cm'),
+        legend.key.width = unit(0.5, 'cm'),
+        legend.spacing.y = unit(0.5, 'cm'),
         plot.caption = element_text(hjust = 0.5))
 
-grafico_avaliacoes_idade
 
+grafico_avaliacoes_idade
 
 

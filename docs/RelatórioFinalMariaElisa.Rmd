@@ -10,7 +10,7 @@ output:
 Antes de responder às perguntas propostas, é necessário, primeiramente, conectar este projeto ao GitHub e, em segundo lugar, importar os bancos de dados a serem utilizados durante a elaboração deste relatório.
 
 
-```{r eval=FALSE, include=FALSE}
+```{r Conectando ao git e ao github, eval=FALSE, include=FALSE}
 
 # Conectando o GitHub
 
@@ -19,14 +19,14 @@ use_git()
 use_github()
 ```
 
-```{r eval=FALSE, include=FALSE}
+```{r Instalando pacote basesCursosR, eval=FALSE, include=FALSE}
 
-# Importando os bancos de dados a serem utilizados
+# Instalando pacote "basesCursoR"
 
 remotes::install_github("curso-r/basesCursoR", force = TRUE)
 ```
 
-```{r}
+```{r Extrair dados, echo=TRUE}
 
 imdb_completa <- basesCursoR::pegar_base("imdb_completa")
 imdb_pessoas <- basesCursoR::pegar_base("imdb_pessoas")
@@ -34,12 +34,12 @@ imdb_avaliacoes <- basesCursoR::pegar_base("imdb_avaliacoes")
 
 ```
 
-```{r eval=FALSE, include=FALSE}
+```{r Salvar bancos de dados, eval=FALSE, include=FALSE}
 
 # Salvando os bancos de dados originais
 
 library(writexl)
-write.csv2(imdb, "data_raw/imdb_completa.csv")
+write.csv2(imdb_completa, "data_raw/imdb_completa.csv")
 write.csv2(imdb_avaliacoes, "data_raw/imdb_avaliacoes.csv")
 write.csv2(imdb_pessoas, "data_raw/imdb_pessoas.csv")
 
@@ -55,7 +55,7 @@ Agora sim, responderei às perguntas.
 
 1. Qual o mês do ano com o maior númedo de filmes? E o dia do ano?
 
-```{r echo=TRUE}
+```{r Pergunta 1, echo=TRUE}
 
 # Carregando os pacotes necessários para responder à pergunta:
 
@@ -108,7 +108,7 @@ recorde_filme_dia
 
 2. Qual o top 5 países com mais filmes na base?
 
-```{r}
+```{r Pergunta 2, echo=TRUE}
 
 # Identificando o top 5 países com mais filmes na base IMDB:
 
@@ -131,7 +131,7 @@ top_paises_filmes
 
 3. Liste todas as moedas que aparecem nas colunas `orcamento` e `receita` da base `imdb_completa`.
 
-```{r}
+```{r Pergunta 3, echo=TRUE}
 
 # Carregando pacotes que utilizarei para responder a esta pergunta:
 
@@ -189,7 +189,7 @@ moedas_receita
 
 4. Considerando apenas orçamentos e receitas em dólar ($), qual o gênero com maior lucro? E com maior nota média?
 
-```{r}
+```{r Pergunta 4, echo=TRUE}
 
 # Identificando qual é o gênero do filme que teve o maior lucro
 
@@ -236,7 +236,7 @@ genero_maior_nota
 
 a) Quem dirigiu o filme? Faça uma ficha dessa pessoa: idade (hoje em dia ou data de falecimento), onde nasceu, quantos filmes já dirigiu, qual o lucro médio dos filmes que dirigiu (considerando apenas valores em dólar) e outras informações que achar interessante (base `imdb_pessoas`).
 
-```{r}
+```{r Pergunta 5, letra A}
 
 # Verificando qual é o nome do diretor do filme
 
@@ -297,7 +297,7 @@ milos_generos_freq <- imdb_completa %>%
 
 b) Qual a posição desse filme no ranking de notas do IMDB? E no ranking de lucro (considerando apenas valores em dólar)?
 
-```{r}
+```{r Pergunta 5, letra B}
 
 # Calculando a posição de "Hair" no ranking de notas do IMDB
 
@@ -333,11 +333,12 @@ posicao_lucro_hair <- imdb_completa %>%
   kable()
 
 posicao_lucro_hair
+
 ```
 
 c) Em que dia esse filme foi lançado? E dia da semana? Algum outro filme foi lançado no mesmo dia? Quantos anos você tinha nesse dia?
 
-```{r}
+```{r Pergunta 5, letra C, echo=TRUE}
 
 # Data de lançamento do filme hair
 
@@ -360,21 +361,23 @@ outros_filmes_lancados
 minha_idade <- imdb_completa %>%
   filter(str_detect(titulo, pattern = "Hair$")) %>%
   mutate(data_lancamento = as.Date(ymd(data_lancamento))) %>%
-  summarise(minha_idade = as.period(data_lancamento - as.Date(dmy("05 nov 1997"))) / years(1))
+  summarise(minha_idade = as.period(data_lancamento - as.Date(dmy("05 nov 1997"))) / years(1)) %>% 
+  mutate(minha_idade = round(minha_idade, 2))
 
-minha_idade
 ```
+
+Eu tinha `r minha_idade` quando o filme "Hair" foi lançado.
 
 d) Faça um gráfico representando a distribuição da nota atribuída a esse filme por idade (base `imdb_avaliacoes`).
 
-```{r}
+```{r Pergunta 5, letra D, echo=TRUE}
 
 # Carregando os pacotes que irei utilizar para elaborar este gráfico:
 
 library(ggplot2)
 
-
-# Gráfico das avaliações por idade
+# Selecionando os valores das variáveis correspondentes às notas médias por 
+# faixa etária
 
 notas <- imdb_completa %>%
   left_join(imdb_avaliacoes, by = "id_filme", copy = TRUE) %>%
@@ -386,6 +389,9 @@ notas <- imdb_completa %>%
   summarise(nota_media = as.numeric(c(nota_media_idade_0_18, nota_media_idade_18_30, nota_media_idade_30_45, nota_media_idade_45_mais))) %>%
   rowid_to_column()
 
+# Elaborando gráfico sobre as notas médias das avaliações do filme "Hair" por 
+# faixa etária
+
 faixa_etaria <- list((1:4), c(
   "0 a 18 anos", "18 a 30 anos", "30 a 45 anos",
   "45 anos ou mais"
@@ -394,23 +400,37 @@ names(faixa_etaria) <- c("rowid", "faixa_etaria")
 
 faixa_etaria <- as.data.frame(faixa_etaria)
 
+# Gráfico das avaliações por idade
+
 grafico_avaliacoes_idade <- notas %>%
   left_join(faixa_etaria, by = "rowid", copy = TRUE) %>%
   select(nota_media, faixa_etaria) %>% 
-  ggplot() +
-  geom_col(aes(x = faixa_etaria, y = nota_media, fill = faixa_etaria)) +
+  ggplot(aes(x = faixa_etaria, y = nota_media, fill = faixa_etaria)) +
+  geom_col(stat = "identity", show.legend = TRUE) +
+  geom_label(aes(label = nota_media), show.legend = FALSE) +
   scale_fill_discrete() +
-  theme(strip.text = element_text(size = 12)) +
-  labs(title = "Figura 1 - Nota média das avaliações recebidas pelo filme \"Hair\" por faixa etária",
+  ylim(0, 10) +
+  labs(title = "Figura 1 - Médias das notas dadas ao filme \"Hair\" por faixa etária",
        y = "Nota média das avaliações",
-       x = "Faixa etária",
+      fill = "Faixa etária",
        caption = "Fonte: IMDB")+
   theme_minimal() +
-  theme(axis.title.x = element_blank(),
+  theme(strip.text = element_text(size = 12),
+        axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
+        axis.line.x = element_blank(),
+        axis.title.y = element_text(size = 10),
         strip.text.y = element_text(angle = 0),
         plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
-        plot.subtitle = element_text(hjust = 1),
-        plot.caption = element_text(hjust = 0.5))
+        legend.title = element_text(hjust = 0.5, size = 10),
+        legend.text = element_text(size = 10),
+        legend.key.size = unit(0.8, 'cm'), 
+        legend.key.height = unit(0.8, 'cm'),
+        legend.key.width = unit(0.8, 'cm'),
+        legend.spacing.y = unit(0.8, 'cm'),
+        plot.caption = element_text(hjust = 0.5, size = 10))
+
 
 grafico_avaliacoes_idade
+
 ```
