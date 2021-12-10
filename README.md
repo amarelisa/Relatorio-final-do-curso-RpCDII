@@ -9,12 +9,15 @@
 
 ### data_raw e data
 
-<p align="justify">Na pasta data_raw, estão disponíveis as bases de dados originais utilizadas neste projeto, em formato ".csv", enquanto, na pasta data, estão as bases de dados modificadas ao longo de seu desenvolvimento, em formato ".rds". Como alguns dos arquivos eram maiores do que o github suportava, foi necessário utilizar a ferramenta "git large files". Caso necessário, consulte os links abaixo:</p>
+<p align="justify">Na pasta data_raw, estão disponíveis as bases de dados originais utilizadas neste projeto, em formato ".csv", enquanto, na pasta data, estão as bases de dados modificadas ao longo de seu desenvolvimento, em formato ".rds". Como alguns dos arquivos eram maiores do que o github suportava, foi necessário utilizar a ferramenta "git large files". Caso necessário, consulte os links abaixo:
 
-https://dzone.com/articles/git-lfs-why-and-how-to-use
-https://docs.github.com/pt/repositories/working-with-files/managing-large-files/configuring-git-large-file-storage
-https://stackoverflow.com/questions/19085807/please-enter-a-commit-message-to-explain-why-this-merge-is-necessary-especially
-https://community.umbler.com/br/t/resolvendo-o-erro-fatal-refusing-to-merge-unrelated-histories-no-git/657
+[Git lfs - por que e como usar](https://dzone.com/articles/git-lfs-why-and-how-to-use)
+
+[Configurando armazenamento de git large file](https://docs.github.com/pt/repositories/working-with-files/managing-large-files/configuring-git-large-file-storage)
+
+[Mensagem de commit no git](https://stackoverflow.com/questions/19085807/please-enter-a-commit-message-to-explain-why-this-merge-is-necessary-especially)
+
+[Erro "refusing to merge unrelated histories no git](https://community.umbler.com/br/t/resolvendo-o-erro-fatal-refusing-to-merge-unrelated-histories-no-git/657)</p>
 
 ### R
 
