@@ -17,7 +17,7 @@
 
 [Mensagem de commit no git](https://stackoverflow.com/questions/19085807/please-enter-a-commit-message-to-explain-why-this-merge-is-necessary-especially)
 
-[Erro "refusing to merge unrelated histories no git](https://community.umbler.com/br/t/resolvendo-o-erro-fatal-refusing-to-merge-unrelated-histories-no-git/657)</p>
+[Erro "refusing to merge unrelated histories no git"](https://community.umbler.com/br/t/resolvendo-o-erro-fatal-refusing-to-merge-unrelated-histories-no-git/657)</p>
 
 ### R
 
